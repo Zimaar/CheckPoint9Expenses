@@ -1,44 +1,8 @@
 import java.util.*;
 
-class Expense {
-
-    private String description;
-    private String category;
-    private int amount;
-
-    public Expense(String description, String category, int amount) {
-        this.description = description;
-        this.category = category;
-        this.amount = amount;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-    public String getCategory() {
-        return category;
-    }
-    public int getAmount() {
-        return amount;
-    }
-
-    public void setDescription(String newDescription) {
-        this.description = newDescription;
-    }
-    public void setCategory(String newCategory) {
-        this.category = newCategory;
-    }
-    public void setAmount(int newAmount) {
-        this.amount = newAmount;
-    }
-
-    public String toString() {
-        return ("Description: " + description + " Catagory:" + category + " Amount: " + amount);
-    }
-}
-public class ExpenseSystem {
+class ExpenseSystem {
     static Scanner scan = new Scanner(System.in);
-    static List<Expense> expenselist = new ArrayList<>();
+    static List<Expense> expenseList = new ArrayList<>();
 
     public static void main(String[] args) {
         int choice = 0;
@@ -55,7 +19,7 @@ public class ExpenseSystem {
 
             if (choice == 1) {
                 editMode();
-                System.out.println(expenselist);
+                System.out.println(expenseList);
             }
 
             else if (choice == 2) {
@@ -93,14 +57,26 @@ public class ExpenseSystem {
                 String category = scan.next();
                 System.out.print("Enter the expense amount: ");
                 int amount = scan.nextInt();
-                Expense free = new Expense(description,category,amount);
-                expenselist.add(free);
-                //Expense.setDescription(description);
-                //Expense.setCategory(category);
-                //Expense.setAmount(amount);
+                Expense newExp = new Expense(description,category,amount);
+                expenseList.add(newExp);
+            }
+
+            if (choice == 2) {
+                System.out.println("Pick the number of the expense you would like to delete: ");
+                for (int i = 0; i < expenseList.size(); i++) {
+                    System.out.println(i + ") " + expenseList.get(i));
+                }
+
+                int delete = scan.nextInt();
+                expenseList.remove(delete);
+                System.out.println("Expense No." + delete + " has been deleted.");
             }
             else if (choice == 3){
                 break;
+            }
+
+            else {
+                System.out.println("Invalid choice, please try again.");
             }
         }
     }
@@ -108,8 +84,8 @@ public class ExpenseSystem {
     public static void analysisMode() {
         ArrayList<ArrayList<Expense>> newlist = new ArrayList<ArrayList<Expense>>();
         ArrayList<String> categoryList = new ArrayList<>();
-        for (int i = 0; i<expenselist.size(); i++){
-            Expense var = expenselist.get(i);
+        for (int i = 0; i< expenseList.size(); i++){
+            Expense var = expenseList.get(i);
             if (categoryList.contains(var.getCategory())){
                 int j = categoryList.indexOf(var.getCategory());
                 (newlist.get(j)).add(var);
@@ -127,7 +103,7 @@ public class ExpenseSystem {
                 System.out.println(newlist.get(k));
             }
         }
-        int totalsum = 0;
+        int totalSum = 0;
         for (int k = 0; k<newlist.size(); k++){
             int sum = 0;
             float average = 0;
@@ -135,22 +111,13 @@ public class ExpenseSystem {
                 sum = sum+newlist.get(k).get(c).getAmount();
             }
             average = (float)sum/newlist.get(k).size();
-            System.out.println("Sum expense of category "+categoryList.get(k)+" is: "+sum);
-            System.out.println("Average expense of category "+categoryList.get(k)+" is: "+average);
-            totalsum = totalsum+sum;
+            System.out.println("Sum expense on " + categoryList.get(k)+" is: "+sum);
+            System.out.println("Average expense on "+categoryList.get(k)+" is: "+average);
+            totalSum = totalSum+sum;
         }
-        System.out.println("Total sum of all expense is: "+totalsum);
+        System.out.println("Total sum of all expense is: "+totalSum);
     }
 }
-
-
-
-
-
-
-
-
-
 
 
 

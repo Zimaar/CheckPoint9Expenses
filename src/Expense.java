@@ -20,13 +20,11 @@ public class Expense {
         return this.amount;
     }
 
-    public static void setDescription(String newDescription) {
-        this.description = newDescription;
-    }
-    public static void setCategory(String newCategory) {
+    public void setDescription(String newDescription) {this.description = newDescription;}
+    public void setCategory(String newCategory) {
         this.category = newCategory;
     }
-    public static void setAmount(int newAmount) {
+    public void setAmount(int newAmount) {
         this.amount = newAmount;
     }
 
