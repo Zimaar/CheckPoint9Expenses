@@ -1,11 +1,12 @@
 import java.util.*;
 
+
 class ExpenseSystem {
     static Scanner scan = new Scanner(System.in);
-    static List<Expense> expenseList = new ArrayList<>();
+    static List<Expense> expenseList = new ArrayList<>(); //using ArrayLists to store the expenses as they are resizable
 
-    public static void main(String[] args) {
-        int choice = 0;
+    public static void main(String[] args) { //the main method has the main loop which redirects to other methods
+        int choice; //initializing choice outside while loop so it's not re-initialized everytime the loop runs
 
         while (true) {
             System.out.println("EXPENSE TRACKER");
@@ -30,16 +31,12 @@ class ExpenseSystem {
                 System.out.println("Goodbye.");
                 break;
             }
-
-            else {
-                System.out.println("Invalid Choice! Please try again.");
-            }
         }
 
     }
 
-    public static void editMode() {
-        int choice = 0;
+    public static void editMode() { //edit mode allows the user to add/delete an expense
+        int choice;
         while (true) {
             System.out.println("====================");
             System.out.println("1) Add an Expense");
@@ -61,7 +58,7 @@ class ExpenseSystem {
                 expenseList.add(newExp);
             }
 
-            if (choice == 2) {
+            if (choice == 2) { //first the added expenses are shown in an ordered list and one is selected to be deleted
                 System.out.println("Pick the number of the expense you would like to delete: ");
                 for (int i = 0; i < expenseList.size(); i++) {
                     System.out.println(i + ") " + expenseList.get(i));
@@ -74,43 +71,37 @@ class ExpenseSystem {
             else if (choice == 3){
                 break;
             }
-
-            else {
-                System.out.println("Invalid choice, please try again.");
-            }
         }
     }
 
     public static void analysisMode() {
-        ArrayList<ArrayList<Expense>> newlist = new ArrayList<ArrayList<Expense>>();
+        ArrayList<ArrayList<Expense>> newList = new ArrayList<ArrayList<Expense>>();
         ArrayList<String> categoryList = new ArrayList<>();
-        for (int i = 0; i< expenseList.size(); i++){
-            Expense var = expenseList.get(i);
-            if (categoryList.contains(var.getCategory())){
+        for (Expense var : expenseList) {
+            if (categoryList.contains(var.getCategory())) {
                 int j = categoryList.indexOf(var.getCategory());
-                (newlist.get(j)).add(var);
-            }
-            else{
+                (newList.get(j)).add(var);
+            } else {
                 ArrayList<Expense> tempList = new ArrayList<>();
                 tempList.add(var);
-                newlist.add(tempList);
+                newList.add(tempList);
                 categoryList.add(var.getCategory());
             }
         }
-        for (int i = 0; i<categoryList.size(); i++){
-            System.out.println("Category "+categoryList.get(i));
-            for (int k = 0; k<newlist.size(); k++){
-                System.out.println(newlist.get(k));
+        for (String s : categoryList) {
+            System.out.println("Category " + s);
+            for (ArrayList<Expense> expenses : newList) {
+                System.out.println(expenses);
             }
         }
         int totalSum = 0;
-        for (int k = 0; k<newlist.size(); k++){
+        for (int k = 0; k<newList.size(); k++){
             int sum = 0;
-            float average = 0;
-            for (int c = 0;c<newlist.get(k).size(); c++){
-                sum = sum+newlist.get(k).get(c).getAmount();
+            float average;
+            for (int c = 0;c<newList.get(k).size(); c++){
+                sum = sum+newList.get(k).get(c).getAmount();
             }
-            average = (float)sum/newlist.get(k).size();
+            average = (float)sum/newList.get(k).size();
             System.out.println("Sum expense on " + categoryList.get(k)+" is: "+sum);
             System.out.println("Average expense on "+categoryList.get(k)+" is: "+average);
             totalSum = totalSum+sum;
