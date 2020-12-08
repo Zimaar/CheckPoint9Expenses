@@ -1,10 +1,19 @@
 import java.util.*;
 
+/**
+ * Raamiz Ali & Luming Li
+ * 2020
+ * Expense System - An Expense Tracker that adds, edits, deletes, and analyzes inputted
+ */
 
 class ExpenseSystem {
     static Scanner scan = new Scanner(System.in);
     static List<Expense> expenseList = new ArrayList<>(); //using ArrayLists to store the expenses as they are resizable
 
+    /**
+     * Main method runs the main loop with input check
+     * @param args
+     */
     public static void main(String[] args) { //the main method has the main loop which redirects to other methods
         int choice; //initializing choice outside while loop so it's not re-initialized everytime the loop runs
 
@@ -18,7 +27,11 @@ class ExpenseSystem {
 
             choice = scan.nextInt();
 
-            if (choice == 1) {
+            if (choice < 1 || choice > 3) {
+                System.out.println("Invalid Input, please select an integer from 1 - 3");
+            }
+
+            else if (choice == 1) {
                 editMode();
                 System.out.println(expenseList);
             }
@@ -35,6 +48,10 @@ class ExpenseSystem {
 
     }
 
+    /**
+     * editMode is the first of two options, it allows user to add an expense
+     * (description, category, and amount) as well as delete a whole expense
+     */
     public static void editMode() { //edit mode allows the user to add/delete an expense
         int choice;
         while (true) {
@@ -46,8 +63,11 @@ class ExpenseSystem {
 
             choice = scan.nextInt();
 
+            if (choice < 1 || choice > 3) {
+                System.out.println("Invalid Input, please select an integer from 1 - 3");
+            }
 
-            if (choice == 1) {
+            else if (choice == 1) {
                 System.out.print("Enter the expense description: ");
                 String description = scan.next();
                 System.out.print("Enter the expense category: ");
@@ -74,6 +94,9 @@ class ExpenseSystem {
         }
     }
 
+    /**
+     * analysis mode gives the user an option to receive processed data (average spend per item, spending per category, total expenditure)
+     */
     public static void analysisMode() {
         ArrayList<ArrayList<Expense>> newList = new ArrayList<ArrayList<Expense>>();
         ArrayList<String> categoryList = new ArrayList<>();
