@@ -118,18 +118,21 @@ class ExpenseSystem {
             }
         }
         int totalSum = 0;
-        for (int k = 0; k<newList.size(); k++){
+        int count = 0;
+        for (int k = 0; k<newlist.size(); k++){
             int sum = 0;
-            float average;
-            for (int c = 0;c<newList.get(k).size(); c++){
-                sum = sum+newList.get(k).get(c).getAmount();
+            float average = 0;
+            for (int c = 0;c<newlist.get(k).size(); c++){
+                sum = sum+newlist.get(k).get(c).getAmount();
             }
-            average = (float)sum/newList.get(k).size();
+            average = (float)sum/newlist.get(k).size();
             System.out.println("Sum expense on " + categoryList.get(k)+" is: "+sum);
             System.out.println("Average expense on "+categoryList.get(k)+" is: "+average);
             totalSum = totalSum+sum;
+            count = count+newlist.get(k).size();
         }
         System.out.println("Total sum of all expense is: "+totalSum);
+        System.out.println("Average of all expense is: "+((float)totalSum/count));
     }
 }
 
